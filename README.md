@@ -43,7 +43,7 @@ This project is great for:
 
 **Roy Phelps**  
 🧠 Data Analytics | Power BI | SQL | AI/ML Enthusiast  
-💼 [LinkedIn](https://www.linkedin.com/in/royphelps1)
+💼 [LinkedIn](https://www.linkedin.com/in/roy-p-67661561/)
 
 ---
 
