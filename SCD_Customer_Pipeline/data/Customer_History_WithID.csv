@@ -1,0 +1,4 @@
+HistoryID,CustomerID,Name,City,Balance,StartDate,EndDate,IsCurrent
+1,1,Alpha Co,Boston,90,2024-09-01 08:00:00,2024-10-01 08:00:00,0
+2,1,Alpha Co,Boston,100,2024-10-01 08:00:00,,1
+3,2,Beta Inc,Chicago,120,2024-09-01 08:00:00,,1

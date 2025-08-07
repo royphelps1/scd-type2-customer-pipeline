@@ -1,0 +1,4 @@
+CustomerID,Name,City,Balance,LastUpdated
+1,Alpha Co,Boston,100,2024-10-01 08:00:00
+2,Beta Inc,Chicago,150,2024-10-01 08:00:00
+3,Gamma Corp,Denver,200,2024-10-01 08:00:00

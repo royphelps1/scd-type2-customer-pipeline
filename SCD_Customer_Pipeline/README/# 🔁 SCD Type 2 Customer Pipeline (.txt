@@ -1,0 +1,116 @@
+# 🔁 SCD Type 2 Customer Pipeline (SQL + Flat Files)
+
+**Author**: Roy Phelps  
+**Tech Stack**: SQL Server | Flat Files | Power BI (optional for visualization)  
+**Last Updated**: August 2025
+
+---
+
+## 📘 Project Overview
+
+This project demonstrates a full Slowly Changing Dimension Type 2 (SCD Type 2) pipeline using SQL Server and CSV flat files.
+
+It simulates a real-world scenario where customer data is received daily and must be compared to existing historical records. The system tracks changes over time — without losing history — by versioning data in a history table.
+
+The pipeline handles:
+- Staging raw customer data (`Customer_Staging`)
+- Detecting changes (e.g., updated `Balance`, `Name`, `City`)
+- Ending old versions (updating `EndDate` and `IsCurrent = 0`)
+- Inserting new versions (`StartDate = LastUpdated`, `IsCurrent = 1`)
+- Using a surrogate key (`HistoryID`) for tracking and joins
+
+---
+
+## 🧱 Folder Structure
+
+SCD_Customer_Pipeline/
+├── sql/
+│ ├── 01_create_tables.sql
+│ ├── 02_load_sample_data.sql
+│ ├── 03a_scd_update_existing.sql
+│ ├── 03b_scd_insert_new_versions.sql
+│ ├── 04_sp_UpdateCustomerHistory.sql
+│ ├── 05_run_stored_procedure.sql
+│ ├── 05_reset_and_rebuild_history.sql
+│ └── 06_verify_history_output.sql
+├── data/
+│ ├── Customer_Staging.csv
+│ ├── Customer_History_WithID.csv
+├── README.md
+
+
+---
+
+## 📂 SQL File Descriptions
+
+| File Name | Purpose |
+|-----------|---------|
+| `01_create_tables.sql` | Creates `Customer_Staging` and `Customer_History_WithID` tables from scratch |
+| `02_load_sample_data.sql` | Loads sample data into both tables for testing |
+| `03a_scd_update_existing.sql` | Updates old rows (sets `EndDate`, `IsCurrent = 0`) where changes are detected |
+| `03b_scd_insert_new_versions.sql` | Inserts new rows into history with updated values |
+| `04_sp_UpdateCustomerHistory.sql` | Creates a stored procedure to automate the update + insert logic |
+| `05_run_stored_procedure.sql` | Executes the stored procedure (`EXEC sp_UpdateCustomerHistory;`) |
+| `05_reset_and_rebuild_history.sql` | Drops and rebuilds the history table with a surrogate key, preserving data |
+| `06_verify_history_output.sql` | Selects full history table ordered by `CustomerID` and `StartDate` |
+
+---
+
+## 🧪 Sample Data (Flat Files)
+
+| File | Description |
+|------|-------------|
+| `Customer_Staging.csv` | Simulated daily feed of current customer data |
+| `Customer_History_WithID.csv` | Original historical table with surrogate key |
+
+---
+
+## ▶️ How to Run This Project
+
+1. Open SQL Server Management Studio (SSMS) or Azure Data Studio
+2. Run `01_create_tables.sql` to set up the tables
+3. Run `02_load_sample_data.sql` to populate with example data
+4. To manually process changes:
+    - Run `03a_scd_update_existing.sql`
+    - Then run `03b_scd_insert_new_versions.sql`
+5. Or to automate:
+    - Run `04_sp_UpdateCustomerHistory.sql` to create the stored procedure
+    - Then run `05_run_stored_procedure.sql` any time a new CSV is loaded into staging
+6. Run `06_verify_history_output.sql` to confirm historical versions are accurate
+7. Use Power BI or a reporting tool to visualize `Customer_History_WithID`
+
+---
+
+## 🧠 What This Teaches
+
+- Dimensional modeling using SCD Type 2
+- Surrogate keys and data versioning
+- SQL `UPDATE`, `INSERT`, and `JOIN` logic for change detection
+- How to automate data pipelines with stored procedures
+- Real-world best practices in organizing SQL projects and data files
+
+---
+
+## 📈 Bonus: Visualizing in Power BI
+
+You can load the `Customer_History_WithID` table into Power BI and:
+- Filter by `IsCurrent = 1` to show the current state
+- Create timeline visuals using `StartDate` and `EndDate`
+- Track how customer values have changed over time
+
+---
+
+## ✅ Status
+
+✅ Project Fully Functional  
+✅ Ready for GitHub Portfolio  
+✅ Modular & Reusable
+
+---
+
+## 📌 License
+
+MIT License — feel free to use or adapt for personal, educational, or professional use.
+
+---
+
